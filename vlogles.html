@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HCA Vlog Academy - Lesbegeleiding</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        :root {
+            --hca-blue: #003366;
+            --hca-gold: #ffcc00;
+        }
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f8fafc;
+        }
+        h1, h2, h3 {
+            font-family: 'Montserrat', sans-serif;
+        }
+        .bg-hca-blue { background-color: var(--hca-blue); }
+        .text-hca-blue { color: var(--hca-blue); }
+        .bg-hca-gold { background-color: var(--hca-gold); }
+        .border-hca-gold { border-color: var(--hca-gold); }
+        
+        .video-poster {
+            position: relative;
+            background: linear-gradient(45deg, #001a33, #003366);
+            border-radius: 12px;
+            overflow: hidden;
+            aspect-ratio: 16 / 9;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-align: center;
+            border: 4px solid #e2e8f0;
+        }
+
+        .video-thumbnail-overlay {
+            position: absolute;
+            inset: 0;
+            background-image: url('https://images.unsplash.com/photo-1492691523567-6170f0295dbd?q=80&w=1000&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.3;
+        }
+
+        .video-content {
+            position: relative;
+            z-index: 2;
+            padding: 20px;
+        }
+
+        .chat-container {
+            height: 400px;
+            overflow-y: auto;
+        }
+
+        #copy-toast {
+            visibility: hidden;
+            min-width: 250px;
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            border-radius: 8px;
+            padding: 16px;
+            position: fixed;
+            z-index: 100;
+            left: 50%;
+            bottom: 30px;
+            transform: translateX(-50%);
+        }
+
+        #copy-toast.show {
+            visibility: visible;
+            animation: fadein 0.5s, fadeout 0.5s 2.5s;
+        }
+
+        @keyframes fadein { from {bottom: 0; opacity: 0;} to {bottom: 30px; opacity: 1;} }
+        @keyframes fadeout { from {bottom: 30px; opacity: 1;} to {bottom: 0; opacity: 0;} }
+
+        /* Storyboard styles */
+        .storyboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+        .storyboard-card {
+            background: white;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+        .storyboard-frame {
+            aspect-ratio: 16 / 9;
+            background: #f1f5f9;
+            border-bottom: 2px solid #e2e8f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #94a3b8;
+            font-size: 0.8rem;
+            position: relative;
+        }
+    </style>
+</head>
+<body class="pb-20">
+
+    <header class="bg-hca-blue text-white p-6 shadow-lg border-b-4 border-hca-gold">
+        <div class="container mx-auto flex justify-between items-center">
+            <div>
+                <h1 class="text-3xl font-extrabold tracking-tight">HCA <span class="text-hca-gold">VLOG ACADEMY</span></h1>
+                <p class="text-sm opacity-80 uppercase tracking-widest">Digitale Geletterdheid Lesbegeleiding</p>
+            </div>
+            <button onclick="copyLink()" class="bg-white/10 hover:bg-white/20 p-2 px-4 rounded-lg border border-white/20 text-sm">
+                <i class="fa-solid fa-link text-hca-gold"></i> Kopieer Link
+            </button>
+        </div>
+    </header>
+
+    <main class="container mx-auto mt-8 px-4 grid grid-cols-1 lg:grid-cols-3 gap-8">
+        
+        <div class="lg:col-span-2 space-y-8">
+            <!-- Video Sectie -->
+            <section class="bg-white rounded-xl shadow-md overflow-hidden border border-slate-200">
+                <div class="p-4 border-b border-slate-100 flex justify-between items-center">
+                    <h2 class="text-xl font-bold text-hca-blue">Stap 1: Bekijk de instructie</h2>
+                    <span class="bg-red-600 text-white text-xs font-bold px-2 py-1 rounded">YOUTUBE</span>
+                </div>
+                <div class="p-6 text-center">
+                    <div class="video-poster">
+                        <div class="video-thumbnail-overlay"></div>
+                        <div class="video-content">
+                            <i class="fa-brands fa-youtube text-6xl text-red-600 mb-4"></i>
+                            <h3 class="text-2xl font-bold mb-2">Het Klokhuis: Zo maak je een film</h3>
+                            <p class="mb-6 text-slate-200 max-w-md mx-auto">Bekijk deze video van Het Klokhuis om te leren hoe je een goed verhaal vertelt en mooie beelden schiet.</p>
+                            
+                            <!-- Bijgewerkte link naar de gevraagde video -->
+                            <a href="https://www.youtube.com/watch?v=6NRW4xuqJxg" target="_blank" class="inline-flex items-center gap-3 bg-hca-gold text-hca-blue font-extrabold py-4 px-8 rounded-full text-lg shadow-xl hover:scale-105 transition active:scale-95">
+                                <i class="fa-solid fa-play"></i>
+                                START VIDEO OP YOUTUBE
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-6 grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
+                        <div class="bg-slate-50 p-3 rounded-lg border border-slate-100 flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-film text-hca-blue"></i>
+                            <span>Scenario & Verhaal</span>
+                        </div>
+                        <div class="bg-slate-50 p-3 rounded-lg border border-slate-100 flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-camera text-hca-blue"></i>
+                            <span>Camerastandpunten</span>
+                        </div>
+                        <div class="bg-slate-50 p-3 rounded-lg border border-slate-100 flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-clapperboard text-green-600"></i>
+                            <span>Regietips</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Gouden Opbouw -->
+            <section class="bg-white rounded-xl shadow-md overflow-hidden border border-slate-200">
+                <div class="p-1 bg-hca-gold"></div>
+                <div class="p-6">
+                    <h2 class="text-xl font-bold text-hca-blue mb-4">De Gouden Opbouw</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <button onclick="showInfo('hook')" class="p-4 bg-slate-50 rounded-xl hover:bg-hca-gold hover:text-hca-blue transition text-left border border-slate-100">
+                            <span class="block text-2xl font-bold mb-1">1</span>
+                            <span class="font-bold">De Hook</span>
+                        </button>
+                        <button onclick="showInfo('kern')" class="p-4 bg-slate-50 rounded-xl hover:bg-hca-gold hover:text-hca-blue transition text-left border border-slate-100">
+                            <span class="block text-2xl font-bold mb-1">2</span>
+                            <span class="font-bold">De Kern</span>
+                        </button>
+                        <button onclick="showInfo('outro')" class="p-4 bg-slate-50 rounded-xl hover:bg-hca-gold hover:text-hca-blue transition text-left border border-slate-100">
+                            <span class="block text-2xl font-bold mb-1">3</span>
+                            <span class="font-bold">De Outro</span>
+                        </button>
+                    </div>
+                    <div id="info-display" class="mt-6 p-6 bg-hca-blue/5 rounded-xl text-center italic text-slate-600 min-h-[100px] flex items-center justify-center">
+                        Klik op een stap om de uitleg te zien.
+                    </div>
+                </div>
+            </section>
+
+            <!-- Storyboard Sectie -->
+            <section class="bg-white rounded-xl shadow-md p-6 border border-slate-200">
+                <div class="flex justify-between items-center mb-6">
+                    <h3 class="text-xl font-bold text-hca-blue flex items-center">
+                        <i class="fa-solid fa-pen-nib mr-3 text-hca-gold"></i> Jouw Storyboard
+                    </h3>
+                    <span class="text-xs text-slate-400">Typ hieronder je plan</span>
+                </div>
+                
+                <div class="storyboard-grid">
+                    <!-- Frame 1 -->
+                    <div class="storyboard-card">
+                        <div class="storyboard-frame">
+                            <span>TEKENING / Omschrijving beeld 1</span>
+                        </div>
+                        <div class="p-3">
+                            <p class="text-[10px] font-bold text-hca-blue uppercase mb-1">Scène 1: De Hook</p>
+                            <textarea placeholder="Wat zeg je hier?" class="w-full p-2 text-sm border rounded bg-slate-50 focus:bg-white focus:ring-1 focus:ring-hca-blue outline-none resize-none h-20"></textarea>
+                        </div>
+                    </div>
+                    <!-- Frame 2 -->
+                    <div class="storyboard-card">
+                        <div class="storyboard-frame">
+                            <span>TEKENING / Omschrijving beeld 2</span>
+                        </div>
+                        <div class="p-3">
+                            <p class="text-[10px] font-bold text-hca-blue uppercase mb-1">Scène 2: Introductie</p>
+                            <textarea placeholder="Waar ben je?" class="w-full p-2 text-sm border rounded bg-slate-50 focus:bg-white focus:ring-1 focus:ring-hca-blue outline-none resize-none h-20"></textarea>
+                        </div>
+                    </div>
+                    <!-- Frame 3 -->
+                    <div class="storyboard-card">
+                        <div class="storyboard-frame">
+                            <span>TEKENING / Omschrijving beeld 3</span>
+                        </div>
+                        <div class="p-3">
+                            <p class="text-[10px] font-bold text-hca-blue uppercase mb-1">Scène 3: Kern deel 1</p>
+                            <textarea placeholder="Wat laat je zien?" class="w-full p-2 text-sm border rounded bg-slate-50 focus:bg-white focus:ring-1 focus:ring-hca-blue outline-none resize-none h-20"></textarea>
+                        </div>
+                    </div>
+                    <!-- Frame 4 -->
+                    <div class="storyboard-card">
+                        <div class="storyboard-frame">
+                            <span>TEKENING / Omschrijving beeld 4</span>
+                        </div>
+                        <div class="p-3">
+                            <p class="text-[10px] font-bold text-hca-blue uppercase mb-1">Scène 4: Kern deel 2</p>
+                            <textarea placeholder="Extra uitleg of actie..." class="w-full p-2 text-sm border rounded bg-slate-50 focus:bg-white focus:ring-1 focus:ring-hca-blue outline-none resize-none h-20"></textarea>
+                        </div>
+                    </div>
+                    <!-- Frame 5 -->
+                    <div class="storyboard-card">
+                        <div class="storyboard-frame">
+                            <span>TEKENING / Omschrijving beeld 5</span>
+                        </div>
+                        <div class="p-3">
+                            <p class="text-[10px] font-bold text-hca-blue uppercase mb-1">Scène 5: Samenvatting</p>
+                            <textarea placeholder="Wat heb je geleerd?" class="w-full p-2 text-sm border rounded bg-slate-50 focus:bg-white focus:ring-1 focus:ring-hca-blue outline-none resize-none h-20"></textarea>
+                        </div>
+                    </div>
+                    <!-- Frame 6 -->
+                    <div class="storyboard-card">
+                        <div class="storyboard-frame">
+                            <span>TEKENING / Omschrijving beeld 6</span>
+                        </div>
+                        <div class="p-3">
+                            <p class="text-[10px] font-bold text-hca-blue uppercase mb-1">Scène 6: De Outro</p>
+                            <textarea placeholder="Zwaai je naar de camera?" class="w-full p-2 text-sm border rounded bg-slate-50 focus:bg-white focus:ring-1 focus:ring-hca-blue outline-none resize-none h-20"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-4 text-center">
+                    <button onclick="window.print()" class="text-sm text-hca-blue font-bold hover:underline">
+                        <i class="fa-solid fa-print mr-1"></i> Print storyboard voor de klas
+                    </button>
+                </div>
+            </section>
+
+            <!-- Checklist -->
+            <section class="bg-white rounded-xl shadow-md p-6 border border-slate-200">
+                <h3 class="text-xl font-bold text-hca-blue mb-6 flex items-center">
+                    <i class="fa-solid fa-list-check mr-3 text-hca-gold"></i> Jouw Vlog-Checklist
+                </h3>
+                <div class="space-y-3">
+                    <label class="flex items-center p-4 bg-slate-50 rounded-lg cursor-pointer hover:bg-blue-50 transition border border-transparent hover:border-blue-100">
+                        <input type="checkbox" class="w-6 h-6 mr-4 accent-hca-blue">
+                        <span class="text-slate-700">Ik film <strong>horizontaal</strong> (liggend).</span>
+                    </label>
+                    <label class="flex items-center p-4 bg-slate-50 rounded-lg cursor-pointer hover:bg-blue-50 transition border border-transparent hover:border-blue-100">
+                        <input type="checkbox" class="w-6 h-6 mr-4 accent-hca-blue">
+                        <span class="text-slate-700">Ik sta met mijn gezicht naar het licht (raam/lamp).</span>
+                    </label>
+                    <label class="flex items-center p-4 bg-slate-50 rounded-lg cursor-pointer hover:bg-blue-50 transition border border-transparent hover:border-blue-100">
+                        <input type="checkbox" class="w-6 h-6 mr-4 accent-hca-blue">
+                        <span class="text-slate-700">Ik heb toestemming van iedereen die in beeld komt.</span>
+                    </label>
+                </div>
+            </section>
+        </div>
+
+        <div class="lg:col-span-1">
+            <section class="bg-white rounded-xl shadow-xl flex flex-col h-[600px] border-2 border-hca-blue overflow-hidden sticky top-8">
+                <div class="bg-hca-blue p-4 text-white flex items-center">
+                    <div class="w-10 h-10 bg-hca-gold rounded-full flex items-center justify-center mr-3">
+                        <i class="fa-solid fa-robot text-hca-blue"></i>
+                    </div>
+                    <div>
+                        <p class="font-bold">Vlog-Buddy</p>
+                        <p class="text-[10px] text-hca-gold uppercase font-bold tracking-tighter">HCA Digitaal</p>
+                    </div>
+                </div>
+
+                <div id="chat-window" class="chat-container p-4 space-y-4 bg-slate-50 flex-grow">
+                    <div class="flex justify-start">
+                        <div class="bg-white border border-slate-200 p-3 rounded-2xl rounded-tl-none max-w-[85%] text-sm shadow-sm">
+                            Hoi! Ik heb de video van Het Klokhuis voor je klaargezet. 🎬<br><br>
+                            In deze video leer je hoe je een echt goed verhaal maakt voor je film of vlog. Heb je vragen?
+                        </div>
+                    </div>
+                </div>
+
+                <div class="p-4 bg-white border-t">
+                    <div class="flex gap-2">
+                        <input type="text" id="user-input" placeholder="Stel je vraag..." class="flex-grow p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-hca-blue text-sm">
+                        <button onclick="sendMessage()" class="bg-hca-blue text-white p-2 px-4 rounded-lg hover:bg-opacity-90 transition">
+                            <i class="fa-solid fa-paper-plane"></i>
+                        </button>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+    </main>
+
+    <div id="copy-toast">Link gekopieerd naar klembord! 📋</div>
+
+    <script>
+        const apiKey = ""; 
+        const chatWindow = document.getElementById('chat-window');
+        const userInput = document.getElementById('user-input');
+
+        function showInfo(part) {
+            const display = document.getElementById('info-display');
+            let content = "";
+            switch(part) {
+                case 'hook':
+                    content = "<div><i class='fa-solid fa-magnet text-4xl text-hca-gold mb-2'></i><br><strong>DE HOOK:</strong> Pak de kijker binnen 5 seconden beet. Vertel wat je gaat doen in deze vlog.</div>";
+                    break;
+                case 'kern':
+                    content = "<div><i class='fa-solid fa-video text-4xl text-hca-blue mb-2'></i><br><strong>DE KERN:</strong> Laat zien wat je doet. Gebruik verschillende shots (dichtbij en veraf).</div>";
+                    break;
+                case 'outro':
+                    content = "<div><i class='fa-solid fa-flag-checkered text-4xl text-hca-gold mb-2'></i><br><strong>DE OUTRO:</strong> Bedank de kijker en zeg tot de volgende keer!</div>";
+                    break;
+            }
+            display.innerHTML = content;
+        }
+
+        function copyLink() {
+            const el = document.createElement('textarea');
+            el.value = window.location.href;
+            document.body.appendChild(el);
+            el.select();
+            document.execCommand('copy');
+            document.body.removeChild(el);
+            const toast = document.getElementById("copy-toast");
+            toast.className = "show";
+            setTimeout(() => { toast.className = toast.className.replace("show", ""); }, 3000);
+        }
+
+        async function sendMessage() {
+            const text = userInput.value.trim();
+            if (!text) return;
+
+            appendMessage('user', text);
+            userInput.value = '';
+
+            const systemPrompt = `Je bent de 'Vlog-Buddy' voor VSO leerlingen van het Hubertus & Berkhoff (HCA). 
+            Help hen bij het vloggen. Houd antwoorden kort, positief en simpel. 
+            Gebruik begrippen als 'De Hook', 'Horizontaal filmen' en 'Privacy'. 
+            Antwoord in het Nederlands met emojis. 🎬`;
+
+            try {
+                const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        contents: [{ parts: [{ text: text }] }],
+                        systemInstruction: { parts: [{ text: systemPrompt }] }
+                    })
+                });
+
+                const data = await response.json();
+                const reply = data.candidates?.[0]?.content?.parts?.[0]?.text || "Ik kan je nu even niet horen. Probeer het nog een keer!";
+                appendMessage('bot', reply);
+            } catch (error) {
+                appendMessage('bot', "Er ging iets mis met mijn verbinding. Probeer het nog eens!");
+            }
+        }
+
+        function appendMessage(role, text) {
+            const div = document.createElement('div');
+            div.className = role === 'user' ? 'flex justify-end' : 'flex justify-start';
+            const innerDiv = document.createElement('div');
+            innerDiv.className = role === 'user' 
+                ? 'bg-hca-blue text-white p-3 rounded-2xl rounded-tl-none max-w-[85%] text-sm shadow-sm'
+                : 'bg-white border border-slate-200 p-3 rounded-2xl rounded-tl-none max-w-[85%] text-sm shadow-sm';
+            innerDiv.innerText = text;
+            div.appendChild(innerDiv);
+            chatWindow.appendChild(div);
+            chatWindow.scrollTop = chatWindow.scrollHeight;
+        }
+
+        userInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') sendMessage(); });
+    </script>
+</body>
+</html>
